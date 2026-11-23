@@ -2,6 +2,8 @@
 
 # AGENT LUMOS
 
+[![CI](https://github.com/sfwoszcz/agent-lumos/actions/workflows/ci.yml/badge.svg)](https://github.com/sfwoszcz/agent-lumos/actions/workflows/ci.yml)
+
 ### A little light on your systems.
 
 **Secure Python monitoring · STM32/C/C++ · x86-64 assembly · CMake · host-side ML**

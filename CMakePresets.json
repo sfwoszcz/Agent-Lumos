@@ -1,0 +1,67 @@
+{
+  "version": 5,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "native",
+      "displayName": "Linux host simulator + native tests",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/native",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "native-sanitized",
+      "inherits": "native",
+      "binaryDir": "${sourceDir}/build/native-sanitized",
+      "cacheVariables": {
+        "LUMOS_SANITIZERS": "ON"
+      }
+    },
+    {
+      "name": "stm32-objects",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/stm32-objects",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/arm-none-eabi.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "MinSizeRel",
+        "LUMOS_STM32_OBJECTS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "native",
+      "configurePreset": "native"
+    },
+    {
+      "name": "native-sanitized",
+      "configurePreset": "native-sanitized"
+    },
+    {
+      "name": "stm32-objects",
+      "configurePreset": "stm32-objects"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "native",
+      "configurePreset": "native",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "native-sanitized",
+      "configurePreset": "native-sanitized",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-lumos"
+version = "1.2.0"
+description = "A secure-by-default educational lightweight RMM monitoring agent"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{name = "Agent Lumos contributors"}]
+keywords = ["rmm", "monitoring", "cybersecurity", "python", "jwt", "aiohttp", "stm32", "embedded", "uart", "cmake", "machine-learning", "firmware"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "Topic :: System :: Monitoring",
+]
+dependencies = [
+    "aiohttp>=3.10,<4",
+    "psutil>=6,<9",
+    "PyJWT>=2.9,<3",
+    "cryptography>=43,<49",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.24,<2"]
+stm32 = ["pyserial>=3.5,<4"]
+ml = ["numpy>=1.26,<3", "scikit-learn>=1.5,<2"]
+
+[project.scripts]
+agent-lumos = "agent_lumos.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

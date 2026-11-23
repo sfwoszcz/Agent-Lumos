@@ -1,0 +1,45 @@
+# Recorded Linux smoke-test transcript, 2026-11-23. Hostname/username anonymized; readings vary.
+
+  +------------------------------------------------+
+  |  * AGENT LUMOS *  //  Linux live demo          |
+  |  observe. authenticate. diagnose.             |
+  +------------------------------------------------+
+
+[1/4] Health check (public)
+$ curl -s http://127.0.0.1:8765/health
+{
+    "service": "agent-lumos",
+    "status": "ok",
+    "version": "1.0.0"
+}
+
+[2/4] Access denied without a token
+$ curl ... /v1/metrics
+HTTP 401 (expected 401)
+
+[3/4] Authenticate with JWT (token hidden)
+$ POST /v1/login
+JWT issued (not printed)
+
+[4/4] Protected system metrics
+$ GET /v1/metrics (Bearer JWT)
+{
+    "agent_id": "lumos-local",
+    "timestamp": "2026-11-23T11:03:33.743814+00:00",
+    "hostname": "demo-host",
+    "cpu_percent": 22.4,
+    "memory_percent": 20.5,
+    "disk_percent": 0.0,
+    "uptime_seconds": 700
+}
+
+Read-only diagnostic: whoami
+$ POST /v1/diagnostics {"action":"whoami"}
+{
+    "action": "whoami",
+    "result": {
+        "username": "demo-user"
+    }
+}
+
+[OK] Agent Lumos demo complete. No shell commands were executed on the agent.

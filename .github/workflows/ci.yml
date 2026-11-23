@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Python and native build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build build-essential
+          python -m pip install -e '.[dev,stm32,ml]'
+      - name: Python tests (including ML)
+        run: python -m pytest -q
+      - name: Native CMake build and CTest
+        run: |
+          cmake --preset native
+          cmake --build --preset native --parallel
+          ctest --preset native
+      - name: C++ simulator and Python integration
+        run: ./scripts/stm32_demo.sh
+      - name: Synthetic ML evaluation and C++ frame scoring
+        run: |
+          make ml-demo
+          make ml-frames
+      - name: Compile Python sources
+        run: python -m compileall -q src

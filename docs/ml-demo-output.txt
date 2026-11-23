@@ -1,0 +1,52 @@
+# Verified Agent Lumos v1.2 Linux ML demonstrations
+
+$ make ml-demo
+PYTHONPATH=src python3 -m agent_lumos ml-demo
+{
+  "data": "synthetic sensor measurements (NOT security incidents)",
+  "eval_size": 190,
+  "features": [
+    "vdd_mv",
+    "temperature_c"
+  ],
+  "injected_abnormal_samples": 70,
+  "ml": {
+    "f1": 0.993,
+    "fn": 0,
+    "fp": 1,
+    "precision": 0.986,
+    "recall": 1.0,
+    "tn": 119,
+    "tp": 70
+  },
+  "model": "StandardScaler + IsolationForest",
+  "rule": {
+    "f1": 0.667,
+    "fn": 35,
+    "fp": 0,
+    "precision": 1.0,
+    "recall": 0.5,
+    "tn": 120,
+    "tp": 35
+  },
+  "train_size": 400,
+  "warning": "Anomaly != attack. Results on fabricated data cannot establish real-world detection performance."
+}
+
+$ make ml-frames
+cmake --preset native
+Preset CMake variables:
+
+  CMAKE_BUILD_TYPE="Debug"
+
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /mnt/data/agent-lumos/build/native
+cmake --build --preset native --parallel
+ninja: no work to do.
+./build/native/stm32-sim | PYTHONPATH=src python3 -m agent_lumos ml-demo --stdin-frames
+{"scored": 4, "missing_sensors": 0, "rejected": 0}
+{"anomaly_score": -0.16762, "authenticated": false, "cpp_state": "ok", "data_origin": "untrusted UART/simulator", "device_id": "stm32-sim", "ml_anomaly": false, "rule_alarm": false, "sequence": 1, "temperature_c": 24.3, "vdd_mv": 3300}
+{"anomaly_score": -0.06955, "authenticated": false, "cpp_state": "ok", "data_origin": "untrusted UART/simulator", "device_id": "stm32-sim", "ml_anomaly": false, "rule_alarm": false, "sequence": 2, "temperature_c": 25.25, "vdd_mv": 3260}
+{"anomaly_score": 0.14458, "authenticated": false, "cpp_state": "warn", "data_origin": "untrusted UART/simulator", "device_id": "stm32-sim", "ml_anomaly": true, "rule_alarm": true, "sequence": 3, "temperature_c": 74.8, "vdd_mv": 3100}
+{"anomaly_score": -0.22172, "authenticated": false, "cpp_state": "ok", "data_origin": "untrusted UART/simulator", "device_id": "stm32-sim", "ml_anomaly": false, "rule_alarm": false, "sequence": 4, "temperature_c": 26.0, "vdd_mv": 3300}

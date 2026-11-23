@@ -1,4 +1,4 @@
-<div align="center">
+
 
 # AGENT LUMOS
 
@@ -16,8 +16,7 @@
        width="900">
 </p>
 
-*Animated terminal preview using synthetic STM32 telemetry
-and machine-learning evaluation samples.*
+*Animated Linux terminal showing the native STM32 host simulator and machine-learning anomaly detection using synthetic telemetry. The demonstration does not represent verified physical STM32 hardware execution.*
 
 ### Run It Yourself
 
@@ -40,7 +39,7 @@ make ml-frames
 ![Build](https://img.shields.io/badge/Build-CMake%20%2B%20Make-blue)
 ![ML](https://img.shields.io/badge/ML-IsolationForest-purple)
 
-</div>
+
 
 > **Portfolio project / educational use only.** Agent Lumos is not a production-ready enterprise RMM platform. Only run it on machines you own or have explicit permission to monitor.
 

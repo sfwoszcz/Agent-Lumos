@@ -1,0 +1,18 @@
+
+[build] CMake + C11 + C++17 native simulator
+[ok] Native build complete
+
+[stm32] CRC16-checked UART frames (HOST SIMULATION)
+  [ OK ] seq=01  vdd=3300mV  temp=24.30C
+  [ OK ] seq=02  vdd=3260mV  temp=25.25C
+  [WARN] seq=03  vdd=3100mV  temp=74.80C
+  [ OK ] seq=04  vdd=3300mV  temp=26.00C
+[ok] 4 valid frames | device authentication: NO
+
+[ml] IsolationForest on SYNTHETIC sensor measurements
+  holdout=190  injected=70
+  ML:        recall=1.000  precision=0.986  FP=1  FN=0
+  threshold: recall=0.500  precision=1.000  FP=0  FN=35
+  [ANOMALY] sim frame seq=03 vdd=3100mV temp=74.80C
+
+[done] Simulation complete. Anomaly != cyberattack.

@@ -1,4 +1,4 @@
-<div align="center">
+
 
 # AGENT LUMOS
 
@@ -6,54 +6,42 @@
 
 ### A little light on your systems.
 
-<!-- lumos:visuals:start -->
 ## Agent Lumos in Action
 
+### Animated Linux Terminal Demo
+
 <p align="center">
-  <img src="docs/assets/agent-lumos-demo.gif" alt="Animated Linux terminal showing the native STM32 simulator and host-side ML anomaly detection" width="1000">
+  <img src="docs/assets/agent-lumos-demo.gif"
+       alt="Agent Lumos STM32 simulator and ML demonstration"
+       width="900">
 </p>
 
-*Animated terminal visualization of verified **host-simulator** output. Data is synthetic; the STM32 firmware has not yet been demonstrated on physical hardware. An ML anomaly is not proof of a cyberattack.*
+*Animated Linux terminal showing the native STM32 host simulator and machine-learning anomaly detection using synthetic telemetry. The demonstration does not represent verified physical STM32 hardware execution.*
 
-### Reproduce the terminal demo
-
-From the repository root, on Linux with CMake, Ninja, GCC/G++, Python 3.11+ and the ML dependencies installed:
+### Run It Yourself
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[dev,stm32,ml]'
-./scripts/portfolio_demo.sh
+
+make demo
+make ml-demo
+make ml-frames
 ```
 
-Optionally, regenerate a **real terminal recording** using [VHS](https://github.com/charmbracelet/vhs) and its prerequisites:
+**Secure Python monitoring · STM32/C/C++ · x86-64 assembly · CMake · host-side ML**
 
-```bash
-vhs docs/demo.tape
-```
+![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Educational-orange)
+![STM32](https://img.shields.io/badge/STM32-C11%20%2B%20C%2B%2B17-1B5E20)
+![Build](https://img.shields.io/badge/Build-CMake%20%2B%20Make-blue)
+![ML](https://img.shields.io/badge/ML-IsolationForest-purple)
 
-### Architecture overview
 
-```mermaid
-flowchart TD
-    subgraph Simulator["Embedded protocol / native Linux simulator"]
-        C["C11 telemetry encoder"]
-        P["C++17 simulator health policy"]
-        P --> C
-    end
-    C -->|"UART-style frames + CRC-16 error check"| V["Python bounded frame parser"]
-    V --> R["STM32 device registry"]
-    R --> A["Authenticated read-only API"]
-    V --> M["Host-side ML demo: IsolationForest"]
-    M --> S["Anomaly scoring and threshold comparison"]
-    T["CMake / CTest / pytest / GitHub Actions"] -.-> Simulator
-    T -.-> V
-```
-
-> **Security boundary:** CRC-16 detects accidental corruption; it does not authenticate the device. The STM32 HAL example and optional ARM/AArch64 assembly samples are not represented here as verified physical-device functionality.
 
 > **Portfolio project / educational use only.** Agent Lumos is not a production-ready enterprise RMM platform. Only run it on machines you own or have explicit permission to monitor.
-<!-- lumos:visuals:end -->
 
 ## What is Agent Lumos?
 

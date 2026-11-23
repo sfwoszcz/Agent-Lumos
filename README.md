@@ -6,6 +6,31 @@
 
 ### A little light on your systems.
 
+## Agent Lumos in Action
+
+### Animated Linux Terminal Demo
+
+<p align="center">
+  <img src="docs/assets/agent-lumos-demo.gif"
+       alt="Agent Lumos STM32 simulator and ML demonstration"
+       width="900">
+</p>
+
+*Animated terminal preview using synthetic STM32 telemetry
+and machine-learning evaluation samples.*
+
+### Run It Yourself
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev,stm32,ml]'
+
+make demo
+make ml-demo
+make ml-frames
+```
+
 **Secure Python monitoring · STM32/C/C++ · x86-64 assembly · CMake · host-side ML**
 
 ![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
